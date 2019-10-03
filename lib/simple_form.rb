@@ -118,10 +118,6 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
   mattr_accessor :browser_validations
   @@browser_validations = true
 
-  # Collection of methods to detect if a file type was given.
-  mattr_accessor :file_methods
-  @@file_methods = [:mounted_as, :file?, :public_filename]
-
   # Custom mappings for input types. This should be a hash containing a regexp
   # to match as key, and the input type that will be used when the field name
   # matches the regexp as value, such as { /count/ => :integer }.
@@ -255,6 +251,16 @@ See https://github.com/plataformatec/simple_form/pull/997 for more information.
   def self.form_class=(value)
     ActiveSupport::Deprecation.warn "[SIMPLE_FORM] SimpleForm.form_class= is deprecated and will be removed in 4.x. Use SimpleForm.default_form_class= instead", caller
     @@form_class = value
+  end
+
+  def self.file_methods=(file_methods)
+    ActiveSupport::Deprecation.warn(FILE_METHODS_DEPRECATION_WARN, caller)
+    @@file_methods = file_methods
+  end
+
+  def self.file_methods
+    ActiveSupport::Deprecation.warn(FILE_METHODS_DEPRECATION_WARN, caller)
+    @@file_methods
   end
 
   # Default way to setup Simple Form. Run rails generate simple_form:install
